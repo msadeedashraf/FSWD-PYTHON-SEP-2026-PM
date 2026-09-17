@@ -1,5 +1,6 @@
 ## Download and intsall python
 
+- Download the latest version for Windows
 [Download](https://www.python.org/downloads/)
 
 ### Getting Started with Python in VS Code
@@ -10,7 +11,7 @@
 
 
 ### VS Code Extension Microsoft Python extension
-[]()
+[](https://code.visualstudio.com/docs/languages/python)
 
 
 ### Python @ W3School
