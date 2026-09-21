@@ -9,6 +9,10 @@
 [Getting Started](https://code.visualstudio.com/docs/python/python-tutorial)
 
 
+### Python for Beginners - Series by Microsoft
+
+[Python for Beginners](https://learn.microsoft.com/en-us/shows/intro-to-python-development/)
+
 
 ### VS Code Extension Microsoft Python extension
 [](https://code.visualstudio.com/docs/languages/python)
