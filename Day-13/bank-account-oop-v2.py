@@ -1,3 +1,9 @@
+# activate and deactivate the bank account
+# IBAN Bank account number creation
+# Account Creation Date
+# Account Info / Balance Account Update
+
+
 from datetime import datetime
 import random
 
