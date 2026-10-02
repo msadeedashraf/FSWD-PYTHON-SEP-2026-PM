@@ -4,6 +4,10 @@ from datetime import datetime
 import random
 
 class BankAccount:
+    
+    bank_name = "SADEED NATIONAL BANK"
+
+
     def __init__(self, account_title, balance):
         self.account_number = self.generate_iban()
         self.account_title = account_title        
@@ -116,7 +120,7 @@ class BankAccount:
             return
 
         print("\n==============================================================")
-        print("                    SADEED NATIONAL BANK")
+        print(f"                    {BankAccount.bank_name}")
         print("==============================================================")
 
         print(f"{'Account Title':>63}: {self.account_title}")
@@ -146,49 +150,82 @@ class BankAccount:
         print("-" * 75)
         print(f"{'Closing Balance':>63}: ${self.balance:.2f}")
 
+    @classmethod
+    def open_account(cls):
+            print(f"Welcome to {cls.bank_name} \nLet's open an account")
+            name = input("\nEnter your Account Title:")
+            user_deposit_amount =  float(input("Enter the initial depost amount: "))
+            opening_balance = user_deposit_amount if user_deposit_amount else 0
+            account = cls(name, opening_balance)
+        
+            print(f"Account Holder : {account.account_title}")
+            print(f"Account Number : {account.account_number}")
+            print(f"Balance        : ${account.balance:.2f}")
 
-bankaccount1 = BankAccount("Frank", "1000")
-#bankaccount1.deposit(100);
-bankaccount2 = BankAccount("Sara", "1200")
-bankaccount3 = BankAccount("Hazla", "2200")
-bankaccount4 = BankAccount("Umar", "5000")
-
-bankaccounts = [bankaccount1, bankaccount2, bankaccount3, bankaccount4]
-
-
-
-while True: 
-    print("\n============================")
-    print("\n   Bank Account Main Menu")
-    print("\n============================")
-
-    for  index , account in enumerate(bankaccounts, start=1):
-        print(f"{index}. {account.account_title}")
-
-    print("1. Open Bank Account")
-    print("0. Quit")
+            print("\nAccount is currently deactivated.")
+            print("Please activate it before making transactions.")
+            return account
 
 
+    
+    @classmethod
+    def find_account(cls, accounts):
+
+        search = input(
+            "\nEnter Account Number or Account Holder Name: "
+        ).strip()
+
+        # Search by account number
+        if search in accounts:
+            return accounts[search]
+
+        # Search by account holder name
+        for account in accounts.values():
+
+            if account.account_title.lower() == search.lower():
+                return account
+
+        print("\nAccount not found.")
+        return None
 
 
-    choice = input("\n Select an account: ")
+    @classmethod
+    def list_accounts(cls, accounts):
 
-    if choice == "0":
-        print("Thank you for choosing the Bank Account")
-        break
+        if len(accounts) == 0:
+            print("\nNo bank accounts have been created.")
+            return
 
-# Convert choice to integer
-    choice = int(choice)
+        print("\n============================================================")
+        print(f"                  {cls.bank_name}")
+        print("                     ACCOUNT LIST")
+        print("============================================================")
 
-    # Check if account exists
-    if choice < 1 or choice > len(bankaccounts):
-        print("Invalid account selection.")
-        continue
+        print(
+            f"{'Account Number':<22}"
+            f"{'Account Title':<20}"
+            f"{'Balance':>12}"
+            f"{'Status':>12}"
+        )
 
-    # Get selected account
-    selected_account = bankaccounts[choice - 1]
+        print("-" * 66)
 
-     # ACCOUNT MENU
+        for account in accounts.values():
+
+            status = "Active" if account.is_active else "Inactive"
+
+            print(
+                f"{account.account_number:<22}"
+                f"{account.account_title:<20}"
+                f"${account.balance:>11.2f}"
+                f"{status:>12}"
+            )
+
+        print("-" * 66)
+
+       # ACCOUNT MENU
+
+def account_menu(selected_account):
     while True:
         print("\n============================")
         print(f"   {selected_account.account_title}'s Account")
@@ -235,5 +272,70 @@ while True:
 
 
 
+def main():
+
+    accounts = {}
+
+
+    while True: 
+        print("\n============================")
+        print("\n   Bank Account Main Menu")
+        print("\n============================")
+
+        print("1. Open Bank Account")
+        print("2. Find Bank Account")
+        print("3. List All Accounts")
+        print("0. Quit")
+
+
+
+
+        choice = input("\n Input your choice: ")
+
+        if choice == "1":
+            account = BankAccount.open_account()
+            accounts[account.account_number] = account
+            account_menu(account)
+
+        elif choice == "2":
+
+            account = BankAccount.find_account(accounts)
+
+            if account is not None:
+
+                account_menu(account)
+
+        elif choice == "3":
+
+            BankAccount.list_accounts(accounts)
+
+        elif choice == "0":
+
+            print(
+                f"\nThank you for choosing "
+                f"{BankAccount.bank_name}."
+            )
+
+            break
+
+
+        else:
+
+            print("\nInvalid option.")
+
+
+main()
+
+
+#Add phone/cell no and email in the account creation process
+#When you create the account check if the account already exist(phone/cell no)
+#Enhance the search capability and list all similar accounts with basic info (account_no,title,phone, email )
+#When Account found display more data like title, account no, balance account creation date, phone and email and center align the operations menu
+#Update all the other relevant methods like view/create/read statements
+
+#Bonus 
+#Apply DRY to that version(no APIE yet just simple objects methods and classes)
+#Read more about the class Methods
+#Apply and save this in a Database (SQL Lite). 
 
 
