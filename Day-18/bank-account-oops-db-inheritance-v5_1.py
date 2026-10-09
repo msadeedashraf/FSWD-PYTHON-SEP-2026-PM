@@ -1,5 +1,7 @@
 # Inheritance
 #The bank introduces different account products. How can we reuse existing banking functionality without copying code?
+#add interest calculation for the saving account and apply fee method in the the chequing Class
+# overdraft method in Business Account
  
 from datetime import datetime
 import random
@@ -91,7 +93,7 @@ class BankAccount:
         self.record_transaction("Deposit", amount, 0)
         print(f"Deposited ${amount:.2f}. New balance: ${self.balance:.2f}")
  
-    def withdraw(self, amount):
+    def withdraw(self, amount): # Signature
         if not self.is_active:
             print("Activate the account first.")
             return
@@ -398,6 +400,8 @@ if __name__ == "__main__":
     main()
  
  
-#add interest calculation for the saving account and apply fee method in the the chequing Class
-# overdraft method in Business Account
- 
+
+ #v5_2
+ # DRY
+ # Implement Overdraft for other types of banks accounts as well.
+ # Student Account without fee
